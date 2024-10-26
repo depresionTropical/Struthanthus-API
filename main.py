@@ -1,14 +1,12 @@
-from typing import Optional
+# main.py
+from fastapi import FastAPI, File, UploadFile
 
-from fastapi import FastAPI
+from module.res_net import predict_class
 
 app = FastAPI()
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+@app.post("/upload-image/")
+async def upload_image(file: UploadFile = File(...)):
+    class_predicted = predict_class.predict_image_class(file.file)
+    return { "class_predicted": class_predicted}

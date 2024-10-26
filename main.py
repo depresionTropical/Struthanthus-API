@@ -24,7 +24,7 @@ class PredictionResponse(BaseModel):
     summary="Subir imagen",
     description="Sube una imagen y predice su clase usando ResNet.",
     tags=["Image Classification"],
-    response_description="La clase predicha de la imagen.",
+    response_description="La clase predicha de la imagen.\n 0: No es Muérdago\n 1: Es Muérdago",
     response_model=PredictionResponse
 )
 async def upload_image(file: UploadFile = File(...)):

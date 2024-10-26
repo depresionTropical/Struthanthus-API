@@ -1,27 +1,65 @@
-# Deploy FastAPI on Render
+# Struthanthus-API
 
-Use this repo as a template to deploy a Python [FastAPI](https://fastapi.tiangolo.com) service on Render.
+## Descripción
+Struthanthus-API es un proyecto que utiliza FastAPI para recibir una imagen, procesarla y devolver la clase a la que pertenece la imagen.
 
-See https://render.com/docs/deploy-fastapi or follow the steps below:
+## Características
+- Recepción de imágenes.
+- Procesamiento de imágenes para clasificación.
+- Devolución de la clase de la imagen.
 
-## Manual Steps
+## Instalación
 
-1. You may use this repository directly or [create your own repository from this template](https://github.com/render-examples/fastapi/generate) if you'd like to customize the code.
-2. Create a new Web Service on Render.
-3. Specify the URL to your new repository or this repository.
-4. Render will automatically detect that you are deploying a Python service and use `pip` to download the dependencies.
-5. Specify the following as the Start Command.
-
-    ```shell
-    uvicorn main:app --host 0.0.0.0 --port $PORT
+1. Clona el repositorio:
+  ```bash
+  git clone https://github.com/tu-usuario/Struthanthus-API.git
+  ```
+2. Navega al directorio del proyecto:
+  ```bash
+  cd Struthanthus-API
+  ```
+3. Crea un entorno virtual:
+  ```bash
+  python -m venv venv
+  ```
+4. Activa el entorno virtual:
+  - En Windows:
+    ```bash
+    venv\Scripts\activate
     ```
+  - En Unix o MacOS:
+    ```bash
+    source venv/bin/activate
+    ```
+5. Instala las dependencias:
+  ```bash
+  pip install -r requirements.txt
+  ```
 
-6. Click Create Web Service.
+## Uso
 
-Or simply click:
+1. Inicia el servidor FastAPI:
+  ```bash
+  uvicorn main:app --reload
+  ```
+2. Envía una imagen a la API para clasificación:
+  ```bash
+  curl -X POST "http://127.0.0.1:8000/clasificar" -F "file=@ruta/a/tu/imagen.jpg"
+  ```
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/render-examples/fastapi)
+## Endpoints
 
-## Thanks
+- `POST /clasificar`: Recibe una imagen y devuelve la clase a la que pertenece.
 
-Thanks to [Harish](https://harishgarg.com) for the [inspiration to create a FastAPI quickstart for Render](https://twitter.com/harishkgarg/status/1435084018677010434) and for some sample code!
+## Ejemplo de Respuesta
+```json
+{
+  "clase": "nombre_de_la_clase"
+}
+```
+
+## Contribuciones
+Las contribuciones son bienvenidas. Por favor, abre un issue o envía un pull request.
+
+## Licencia
+Este proyecto está bajo la Licencia MIT.

@@ -1,6 +1,5 @@
 import torch
 from torchvision import transforms
-from torchvision.transforms.functional import to_pil_image
 from PIL import Image
 from torch.serialization import add_safe_globals
 from torch.nn import Sequential

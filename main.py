@@ -1,8 +1,11 @@
 # main.py
-from typing import Dict, Literal
+from typing import  Literal
 from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import RedirectResponse
+
 from pydantic import BaseModel
 from module.res_net import predict_class
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Struthanthus API",
@@ -15,9 +18,21 @@ app = FastAPI(
     },
     docs_url="/doc", redoc_url=None
 )
+# Permitir acceso desde cualquier origen temporalmente
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permitir todos los orígenes
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class PredictionResponse(BaseModel):
     class_predicted: Literal[0, 1]
+
+@app.get("/", include_in_schema=False)
+async def root():
+    return RedirectResponse(url="/doc")
 
 @app.post(
     "/upload-image/",
